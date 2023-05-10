@@ -1,4 +1,4 @@
-<h1>GitHub Repositories</h1>
+<h1 class="text-3xl font-bold underline">GitHub Repositories</h1>
 
 <ul>
   <% @repos.each do |repo| %>
@@ -13,6 +13,9 @@
     </p>
     <p>
       Created on: <%= repo.created_at.in_time_zone("Australia/Sydney").strftime("%A, %d %B %Y %Z") %>
+    </p>
+     <p>
+      Last updated on: <%= repo.updated_at.in_time_zone("Australia/Sydney").strftime("%A, %d %B %Y %Z") %>
     </p>
     <hr>
   <% end %>
