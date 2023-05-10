@@ -1,0 +1,19 @@
+<h1>GitHub Repositories</h1>
+
+<ul>
+  <% @repos.each do |repo| %>
+    <p>
+    Repo: <%= repo.name %>
+    </p>
+    <p>
+      Language: <%= repo.language %>
+    </p>
+    <p>
+      Description: <%= repo.description %>
+    </p>
+    <p>
+      Created on: <%= repo.created_at.in_time_zone("Australia/Sydney").strftime("%A, %d %B %Y %Z") %>
+    </p>
+    <hr>
+  <% end %>
+</ul>
