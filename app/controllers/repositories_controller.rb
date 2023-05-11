@@ -4,6 +4,15 @@ class RepositoriesController < ApplicationController
     @repos = client.repos.sort_by { |repo| repo.created_at }.reverse
   end
 
+  def new
+    @repository = Repository.new(repository.params)
+    if @repository.save
+      redirect_to @repository
+    else
+      render 'new'
+    end
+  end
+
   def create
     client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
     repo_name = params[:name]
@@ -17,4 +26,5 @@ class RepositoriesController < ApplicationController
 
     redirect_to root_path
   end
+
 end

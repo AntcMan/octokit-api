@@ -1,0 +1,14 @@
+.btn-class {
+  display: inline-block;
+  padding: 10px 20px;
+  color: #0069d9;
+  border: solid #0069d9;
+  border-width: 2px;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 8px;
+  margin-bottom: 8px
+}
