@@ -1,0 +1,6 @@
+<%= form_with url: repositories_path, method: :post do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <br>
+  <%= f.submit "Create Repository" %>
+<% end %>
