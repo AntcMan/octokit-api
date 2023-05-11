@@ -4,6 +4,9 @@
       GitHub Repositories
     </h1>
   </div>
+  <div class="btn-class">
+    <%= link_to 'Create new repo', form_page_path, class:'border' %>
+  </div>
 
   <div class="content-repo">
     <% @repos.each do |repo| %>
