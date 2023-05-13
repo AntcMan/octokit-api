@@ -1,11 +1,15 @@
 class RepositoriesController < ApplicationController
+  before_action :find_repository, only: [:show]
   def index
     client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
     @repos = client.repos.sort_by { |repo| repo.created_at }.reverse
   end
 
-  def show
-    @repository = find_repository
+  def find_repository
+    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+    client.repo(params[:id])
+  rescue Octokit::NotFound
+    redirect_to repositories_path, flash: { error: 'Repository not found.' }
   end
 
   def new
@@ -54,7 +58,7 @@ class RepositoriesController < ApplicationController
 
   # EDIT
   def edit
-    @repository = find_repository
+    @repository = Repository.find(params[:id])
     client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
     @current_name = client.repository(@repository.full_name).name
 
@@ -62,7 +66,7 @@ class RepositoriesController < ApplicationController
 
   # DESTROY
   def destroy
-    @repository = find_repository
+    @repository = Repository.find(params[:id])
     client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
     begin
       client.delete_repository(@repository.full_name)
@@ -76,10 +80,6 @@ class RepositoriesController < ApplicationController
   end
 
   private
-
-  def find_repository
-    Repository.find(params[:id])
-  end
 
   def repository_params
     params.require(:repository).permit(:name, :description)
