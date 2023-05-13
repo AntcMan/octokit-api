@@ -9,7 +9,7 @@ class RepositoriesController < ApplicationController
   end
 
   def new
-    @repository = Repository.new(repository.params)
+    @repository = Repository.new(repository_params)
     if @repository.save
       redirect_to @repository
     else
@@ -31,14 +31,19 @@ class RepositoriesController < ApplicationController
     redirect_to root_path
   end
 
-  # EDIT
-  def edit
-    @repository = find_repository
-  end
-
   # UPDATE
   def update
-    @repository = find_repository
+    @repository = Repository.find(params[:id])
+
+    # Update the repository name using Octokit
+    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+    begin
+      client.update.repository(@repository.full_name, name: params[:repository][:name])
+    rescue Octokit::UnprocessableEntity => e
+      flash[:error] = e.message
+      redirect_to edit_repository_path(@repository)
+      return
+    end
 
     if @repository.update(repository_params)
       redirect_to @repository
@@ -49,7 +54,15 @@ class RepositoriesController < ApplicationController
 
   # DESTROY
   def destroy
-    @repository = find_repository
+    @repository = Repository.find(params[:id])
+    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+    begin
+      client.delete_repository(@repository.full_name)
+    rescue Octokit::NotFound => e
+      flash[:error] = e.message
+      redirect_to root_path
+      return
+    end
     @repository.destroy
     redirect_to root_path
   end
