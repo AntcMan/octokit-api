@@ -27,4 +27,14 @@ class RepositoriesController < ApplicationController
     redirect_to root_path
   end
 
+  # UPDATE
+
+  # EDIT
+
+  # DESTROY
+  def destroy
+    @repository = Repository.find(params[:id])
+    @repository.destroy
+    redirect_to root_path
+  end
 end
