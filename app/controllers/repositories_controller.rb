@@ -4,6 +4,10 @@ class RepositoriesController < ApplicationController
     @repos = client.repos.sort_by { |repo| repo.created_at }.reverse
   end
 
+  def show
+    @repository = find_repository
+  end
+
   def new
     @repository = Repository.new(repository.params)
     if @repository.save
@@ -27,14 +31,36 @@ class RepositoriesController < ApplicationController
     redirect_to root_path
   end
 
-  # UPDATE
-
   # EDIT
+  def edit
+    @repository = find_repository
+  end
+
+  # UPDATE
+  def update
+    @repository = find_repository
+
+    if @repository.update(repository_params)
+      redirect_to @repository
+    else
+      render :edit
+    end
+  end
 
   # DESTROY
   def destroy
-    @repository = Repository.find(params[:id])
+    @repository = find_repository
     @repository.destroy
     redirect_to root_path
+  end
+
+  private
+
+  def find_repository
+    Repository.find(params[:id])
+  end
+
+  def repository_params
+    params.require(:repository).permit(:name, :description)
   end
 end
