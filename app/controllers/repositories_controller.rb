@@ -52,9 +52,17 @@ class RepositoriesController < ApplicationController
     end
   end
 
+  # EDIT
+  def edit
+    @repository = find_repository
+    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+    @current_name = client.repository(@repository.full_name).name
+
+  end
+
   # DESTROY
   def destroy
-    @repository = Repository.find(params[:id])
+    @repository = find_repository
     client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
     begin
       client.delete_repository(@repository.full_name)

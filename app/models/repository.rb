@@ -1,3 +1,3 @@
 class Repository < ApplicationRecord
-  validates :name, presence: true
+  validates :name, :description, presence: true
 end
