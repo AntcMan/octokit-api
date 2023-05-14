@@ -6,9 +6,10 @@ class RepositoriesController < ApplicationController
     @repos = client.repos.sort_by { |repo| repo.created_at }.reverse
   end
 
-  def show
+   def show
     client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
-    @repo = client.repository(params[:id])
+    owner_name = params[:owner_name]
+    repo_name = params[:repo_name]
   end
 
   def new
@@ -40,10 +41,6 @@ class RepositoriesController < ApplicationController
 
   # DESTROY
   def destroy
-    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
-    client.delete_repository
-    repo.destroy
-    redirect_to root_path
   end
 
   private
