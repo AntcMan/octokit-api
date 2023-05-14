@@ -1,17 +1,2 @@
-<h1><%= @repository.name %></h1>
-
-<p>Language: <%= @repository.language %></p>
-<p>Description: <%= @repository.description %></p>
-<p>Created on: <%= @repository.created_at.in_time_zone("Australia/Sydney").strftime("%A, %d %B %Y %Z") %></p>
-<p>Last updated on: <%= @repository.updated_at.in_time_zone("Australia/Sydney").strftime("%A, %d %B %Y %Z") %></p>
-
-<div class="btn-repo-actions">
-  <div class="btn-edit">
-    <%= link_to 'Edit', edit_repository_path(@repository) %>
-  </div>
-  <div class="btn-delete">
-    <%= link_to 'Delete', repository_path(@repository), method: :delete, data: { confirm: 'Are you sure?' } %>
-  </div>
-</div>
-
-<%= link_to 'Back to repositories', repositories_path %>
+<h1><%= @repo[:name] %></h1>
+<p><%= @repo[:description] %></p>
