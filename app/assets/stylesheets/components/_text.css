@@ -1,0 +1,15 @@
+h1 {
+  padding: 10px;
+  font-weight: bold;
+  color: blue;
+}
+
+h2 {
+  padding: 10px;
+  font-style: italic;
+  color: red;
+}
+
+p {
+  padding: 10px;
+}

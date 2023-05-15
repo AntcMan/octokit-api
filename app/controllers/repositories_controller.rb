@@ -7,7 +7,7 @@ class RepositoriesController < ApplicationController
   end
 
   def show
-    @repository_data = Octokit::Client.new(access_token).repo(params[:id])
+    @repository_data = Octokit::Client.new(access_token).repo(params[:id].to_i)
   end
 
   def new
@@ -42,6 +42,9 @@ class RepositoriesController < ApplicationController
   end
 
   private
+
+  def repository_full_name
+  end
 
   def access_token
     { access_token: ENV['GITHUB_TOKEN'] }
