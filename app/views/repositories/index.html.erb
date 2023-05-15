@@ -11,7 +11,7 @@
   <div class="content-repo">
     <% @repos.each do |repo| %>
       <p class="btn-repo-name">
-        <%= link_to repo.name, repository_path(repo) %>
+        <%= link_to repo.name, repository_path(repo.id) %>
       <p>
         Created on: <%= repo.created_at.in_time_zone("Australia/Sydney").strftime("%A, %d %B %Y %Z") %>
       </p>

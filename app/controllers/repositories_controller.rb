@@ -6,9 +6,8 @@ class RepositoriesController < ApplicationController
     @repos = client.repos.sort_by { |repo| repo.created_at }.reverse
   end
 
-   def show
-    client = Octokit::Client.new(access_token).repo(params[:id])
-
+  def show
+    @repository_data = Octokit::Client.new(access_token).repo(params[:id])
   end
 
   def new
