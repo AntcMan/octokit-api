@@ -39,6 +39,8 @@ class RepositoriesController < ApplicationController
 
   # DESTROY
   def destroy
+    Octokit::Client.new(access_token).delete_repo(params[:id].to_i)
+    redirect_to root_path
   end
 
   private
