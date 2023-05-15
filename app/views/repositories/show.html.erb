@@ -13,5 +13,5 @@
 <h2>
   Last updated on: <%= @repository_data.created_at %>
 </h2>
-<%= button_to 'Delete', repository_path, method: :delete%>
-<%= link_to 'Edit', repository_path,  %>
+<%= button_to 'Delete', repository_path, method: :delete %>
+<%= link_to 'Edit', edit_repository_path(@repository_data) %>
