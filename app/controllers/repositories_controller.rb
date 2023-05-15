@@ -7,7 +7,8 @@ class RepositoriesController < ApplicationController
   end
 
   def show
-    @repository_data = Octokit::Client.new(access_token).repo(params[:id].to_i)
+    # @repository_data = Octokit::Client.new(access_token).repo(params[:id].to_i)
+    @repository_data = Octokit::Client.new(access_token).repo(params[:id])
   end
 
   def new
@@ -34,8 +35,18 @@ class RepositoriesController < ApplicationController
   end
 
   # UPDATE
+  def update
+    Octokit::Client.new(access_token).update_repo(params[:id].to_i)
+  end
 
   # EDIT
+  def edit
+    Octokit::Client.new(access_token).edit_repo(params[:id].to_i)
+    # FORM MUST PING THE GH REPO
+    # RENDER THE REPO WITH A FORM CONTAINING CURRENT DATA
+    # EDIT THE DATA IN THE FORM
+    # SUBMIT FORM
+  end
 
   # DESTROY
   def destroy
