@@ -2,14 +2,13 @@ class RepositoriesController < ApplicationController
   require 'octokit'
 
   def index
-    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+    client = Octokit::Client.new(access_token)
     @repos = client.repos.sort_by { |repo| repo.created_at }.reverse
   end
 
    def show
-    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
-    owner_name = params[:owner_name]
-    repo_name = params[:repo_name]
+    client = Octokit::Client.new(access_token).repo(params[:id])
+
   end
 
   def new
@@ -22,7 +21,7 @@ class RepositoriesController < ApplicationController
   end
 
   def create
-    client = Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+    client = Octokit::Client.new(access_token)
     repo_name = params[:name]
 
     begin
@@ -44,6 +43,10 @@ class RepositoriesController < ApplicationController
   end
 
   private
+
+  def access_token
+    { access_token: ENV['GITHUB_TOKEN'] }
+  end
 
   def repository_params
     params.require(:repository).permit(:name, :description)

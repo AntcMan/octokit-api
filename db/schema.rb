@@ -10,10 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_053123) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_15_060459) do
   create_table "repositories", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "url"
+    t.text "description"
   end
 
 end
