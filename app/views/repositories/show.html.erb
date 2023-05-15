@@ -1,1 +1,17 @@
-<h1><%= @repo.name %></h1>
+<h1>
+  Repo Name: <%= @repository_data.name %>
+</h1>
+<p> :: </p>
+<h2>
+  Description: <%= @repository_data.description %>
+</h2>
+<p> :: </p>
+<h2>
+  Last updated on: <%= @repository_data.created_at %>
+</h2>
+<p> :: </p>
+<h2>
+  Last updated on: <%= @repository_data.created_at %>
+</h2>
+<%= button_to 'Delete', repository_path, method: :delete %>
+<%= link_to 'Edit', edit_repository_path(@repository_data) %>

@@ -13,4 +13,5 @@
  *= require_tree .
  *= require_self
  */
-@import "components/_button.css"
+@import "components/_button.css";
+@import "components/_text.css";
