@@ -35,12 +35,14 @@ class RepositoriesController < ApplicationController
 
   # EDIT
   def edit
-    client = Octokit::Client.new(access_token).repo(params[:id].to_i)
+    # ACCESS THE CORRECT REPO
+    client = Octokit::Client.new(access_token)
+    @repository = client.repository(params[:id].to_i)
     # FORM MUST PING THE GH REPO
-    repo_id = params[:id].to_i
+    # repo_id = params[:id].to_i
     # RENDER THE REPO WITH A FORM CONTAINING CURRENT DATA
-    @repository = client.repository(repo_id)
     # EDIT THE DATA IN THE FORM
+    # @repository = client.repository(repo_id)
     # SUBMIT FORM
   end
 
@@ -50,7 +52,8 @@ class RepositoriesController < ApplicationController
     repo_id = params[:id].to_i
     new_name = params[:repository][:name]
 
-    client.update_repository(repo_id, name: new_name)
+    # client.update_repository(repo_id, name: new_name)
+    client.update_repository_data(repo_id, name: new_name)
 
     redirect_to repo_path(repo_id)
   end
@@ -62,9 +65,6 @@ class RepositoriesController < ApplicationController
   end
 
   private
-
-  def repository_full_name
-  end
 
   def access_token
     { access_token: ENV['GITHUB_TOKEN'] }
