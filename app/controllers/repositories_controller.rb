@@ -45,19 +45,21 @@ class RepositoriesController < ApplicationController
 
   # UPDATE
   def update
-    # INITIALZE A NEW INSTANCE
-    # client = Octokit::Client.new(access_token).repo(params[:id])
+    # INITIALIZE A NEW INSTANCE
     client = Octokit::Client.new(access_token)
 
     # RETRIEVE REPO ID AND ASSIGN IT TO 'REPO_ID'
     repo_id = params[:id].to_i
+    puts "repo_id: #{repo_id}"
 
-    # client.update_repository(repo_id, name: new_name)
     new_name = params[:repository][:name]
-    client.update_repository_data(repo_id, name: new_name)
+
+    puts "new_name: #{new_name}"
+
+    client.update_repository(repo_id, name: new_name)
 
     # REDIRECT TO THE REPOSITORY SHOW PAGE WITH THE UPDATED NAME
-    redirect_to repositories_path
+    redirect_to repository_path(repo.id)
   end
 
   # DESTROY
