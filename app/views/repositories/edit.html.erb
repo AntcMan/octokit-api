@@ -1,14 +1,12 @@
 <h1>Update the repo name</h1>
 <p>Current repo name: <%= @repository_data.name %></p>
 
-<div class="form-edit">
-  <%= form_for update_repository_path(@repository_data) do |form| %>
-    <%= form.label :name %>
-    <div class="form-input">
-      <%= form.text_field :name, placeholder: 'Enter Repository Name' %>
-    </div>
-    <div class="btn-submit">
-      <%= form.submit 'Update Name' %>
-    </div>
-  <% end %>
-</div>
+<%= form_tag update_repository_path(@repository_data.id), method: :put do %>
+  <%= label_tag :name %>
+  <div class="form-input">
+    <%= text_field_tag 'repository[name]', @repository_data.name, placeholder: 'Enter Repository Name' %>
+  </div>
+  <div class="btn-submit">
+    <%= submit_tag 'Update Name' %>
+  </div>
+<% end %>
