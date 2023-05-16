@@ -35,26 +35,24 @@ class RepositoriesController < ApplicationController
 
   # EDIT
   def edit
-    # ACCESS THE CORRECT REPO
+    # ACCESS THE CORRECT REPO WITH A NEW INSTANCE
     client = Octokit::Client.new(access_token)
-    @repository = client.repository(params[:id].to_i)
-    # FORM MUST PING THE GH REPO
-    # repo_id = params[:id].to_i
-    # RENDER THE REPO WITH A FORM CONTAINING CURRENT DATA
-    # EDIT THE DATA IN THE FORM
-    # @repository = client.repository(repo_id)
-    # SUBMIT FORM
+    # RETRIEVE THE REPO INFORMATION BASED ON THE ID; ID MUST BE PASSED AS AN INTEGER
+    # THE RETRIEVED REPO IS ASSIGNED TO '@REPOSITORY_DATA' INSTANCE; THIS POPULATES THE FORM WITH
+    # THE CURRENT REPOSITORY INFO
+    @repository_data = client.repository(params[:id].to_i)
   end
 
   # UPDATE
   def update
-    client = Octokit::Client.new(access_token).repo(params[:id].to_i)
+    # INITIALZE A NEW INSTANCE
+    client = Octokit::Client.new(access_token).repo(params[:id])
+    # RETRIEVE REPO ID AND ASSIGN IT TO 'REPO_ID'
     repo_id = params[:id].to_i
-    new_name = params[:repository][:name]
-
     # client.update_repository(repo_id, name: new_name)
+    new_name = params[:repository][:name]
     client.update_repository_data(repo_id, name: new_name)
-
+    # REDIRECT TO THE REPOSITORY SHOW PAGE WITH THE UPDATED NAME
     redirect_to repo_path(repo_id)
   end
 

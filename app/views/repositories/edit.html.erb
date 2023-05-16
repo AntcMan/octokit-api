@@ -1,5 +1,7 @@
-<%= form_for @repository do |form| %>
+<h1>Update the repo name</h1>
+
+<%= form_for @repository_data do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
-  <%= form.submit 'Update Repo Name' %>
+  <%= form.submit 'Update Name' %>
 <% end %>
